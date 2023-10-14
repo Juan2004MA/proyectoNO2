@@ -112,4 +112,4 @@ bienvenidos a nuestro proyecto
 
 
   
-  ## [link del video de nuestro proyeco, funcionamiento y explicacion de nuestro código](https://youtu.be/w9U3jg1CCBc?feature=shared)
+[link del video de nuestro proyeco, funcionamiento y explicacion de nuestro código](https://youtu.be/w9U3jg1CCBc?feature=shared)
