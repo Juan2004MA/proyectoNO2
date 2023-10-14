@@ -4,7 +4,7 @@ bienvenidos a nuestro proyecto
 # Bienvenidos a nuestro proyecto 2 de Algoritmos
 ### José Miguel Marroquín Aquino (7690-23-16393)
 ### Juan José Marroquín Aquino (7690-23-16390)
-c++
+```c++
         #include <iostream>
         #include <vector>
         #include <string>
