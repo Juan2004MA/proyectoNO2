@@ -10,6 +10,14 @@ bienvenidos a nuestro proyecto
         #include <string>
 
         using namespace std;
+        void escribir(){
+            fstream archivo;
+            archivo.open("proyecto2.txt",fstream::out);
+
+            if(archivo.fail()){
+                cout<<"no se pudo abrir el archivo";
+                exit(1);
+            }
 
         struct Producto {
             string nombre;
