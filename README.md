@@ -1,123 +1,114 @@
-# proyectoNO2
-bienvenidos a nuestro proyecto 
+## PROYECTO 2
+### BIENVENIDOS A NUESTRO PROYECTO
+#### Juan José Marroquin Aquino / 7690-23-16390
+#### José Miguel Marroquín Aquino / 7690-23-16393
 
-# Bienvenidos a nuestro proyecto 2 de Algoritmos
-### José Miguel Marroquín Aquino (7690-23-16393)
-### Juan José Marroquín Aquino (7690-23-16390)
 ```c++
-        #include <iostream>
-        #include <vector>
-        #include <string>
-
-        using namespace std;
-        void escribir(){
-            fstream archivo;
-            archivo.open("proyecto2.txt",fstream::out);
-
-            if(archivo.fail()){
-                cout<<"no se pudo abrir el archivo";
-                exit(1);
-            }
-
-        struct Producto {
-            string nombre;
-            string codigo;
-            float precio;
-            string proveedor;
-            int existencias;
-            char estado;
-            float descuento;
-        }; 
 
 
-        void agregarProducto(vector<Producto>& inventario) {
-            Producto nuevoProducto;
-            cout << "Ingrese el producto que quiera crear : ";
-            cin >> nuevoProducto.nombre;
-            cout << "Ingrese el precio que desea ponerle: ";
-        cin >> nuevoProducto.precio;
-        cout << "ingrese el codigo que desea ponerle:";
-        cin >> nuevoProducto.codigo;
-            inventario.push_back(nuevoProducto);
+#include <iostream>
+#include <vector>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+struct Producto {
+    string nombre;
+    string codigo;
+    float precio;
+};
+
+void agregarProducto(ofstream& es, vector<Producto>& inventario) {
+    Producto nuevoProducto;
+    cout << "Ingrese el nombre del producto: ";
+    cin >> nuevoProducto.nombre;
+    cout << "Ingrese el código del producto: ";
+    cin >> nuevoProducto.codigo;
+    cout << "Ingrese el precio del producto: ";
+    cin >> nuevoProducto.precio;
+
+    inventario.push_back(nuevoProducto);
+
+    
+    if (es.is_open()) {
+        es << nuevoProducto.nombre << " " << nuevoProducto.codigo << " " << nuevoProducto.precio << "\n";
+        es.close(); 
+    } else {
+        cerr << "Error al abrir el archivo." << endl;
+    }
+}
+
+void buscarProducto(const 
+vector<Producto>& inventario) {
+   string nombreBuscado;
+  cout << "Ingrese el producto que desea buscar: ";
+    cin >> nombreBuscado;
+
+    for (const auto& producto : inventario) {
+        if (producto.nombre == nombreBuscado) {
+            cout << "Resultado de la búsqueda:" << endl;
+            cout << "Nombre: " << producto.nombre << endl;
+            cout << "Código: " << producto.codigo << endl;
+            cout << "Precio: " << producto.precio << endl;
+            return;
         }
+    }
 
+    cout << "Lo siento, producto no encontrado." << endl;
+}
 
-        void buscarProducto(const vector<Producto>& inventario) {
-            
-            string nombreBuscado;
-            cout << "ingrese el producto que quiera buscar: ";
-            cin >> nombreBuscado;
+void modificarProducto(vector<Producto>& inventario) {
+    string nombreModificado;
+    cout << "¿Qué producto desea modificar?: ";
+    cin >> nombreModificado;
 
-            for (const auto& producto : inventario) {
-                if (producto.nombre == nombreBuscado) {
-                    cout << "resultados de su busqueda:" << endl;
-                    cout << "Nombre: " << producto.nombre << endl;
-                    cout << "Precio: " << producto.precio << endl;
-                    cout << "codigo: " << producto.codigo << endl;
-                return;
-                }
-            }
-            
-            cout << "lo siento, producto no encontrado." << endl;
+    for (auto& producto : inventario) {
+        if (producto.nombre == nombreModificado) {
+            cout << "Ingrese el nuevo nombre del producto: ";
+            cin >> producto.nombre;
+            cout << "Ingrese el nuevo precio del producto: ";
+            cin >> producto.precio;
+            cout << "Producto modificado exitosamente." << endl;
+            return;
         }
+    }
 
+    cout << "Lo siento, no se encontró el producto." << endl;
+}
 
-        void modificarProducto(vector<Producto>& inventario) {
-            
-            string nombreModificado;
-            cout << "¿que producto desea modificar?: ";
-            cin >> nombreModificado;
+int main() {
+    vector<Producto> inventario;
+    int opcion;
+    ofstream es("productos2.txt", ios::app); 
 
-            for (auto& producto : inventario) {
-                if (producto.nombre == nombreModificado) {
-                    cout << "Ingrese el nuevo nombre del producto: ";
-                    cin >> producto.nombre;
-                    cout << "Ingrese el nuevo precio del producto: ";
-                    cin >> producto.precio;
-                    cout << "Producto modificado exitosamente." << endl;
-                    return;
-                }
-            }
+    do {
+        cout << "1. Agregar Producto" << endl;
+        cout << "2. Buscar Producto" << endl;
+        cout << "3. Modificar Producto" << endl;
+        cout << "4. Salir" << endl;
+        cout << "Ingrese su opción: ";
+        cin >> opcion;
 
-            cout << "lo siento:( no se encontró el producto: " << endl;
+        switch (opcion) {
+            case 1:
+                agregarProducto(es, inventario);
+                break;
+            case 2:
+                buscarProducto(inventario);
+                break;
+            case 3:
+                modificarProducto(inventario);
+                break;
+            case 4:
+                cout << "Saliendo..." << endl;
+                break;
+            default:
+                cout << "Opción no válida. Intente de nuevo." << endl;
         }
+    } while (opcion != 4);
 
-
-        int main() {
-            vector<Producto> inventario;
-            vector<Producto> otroArreglo;  
-            int opcion;
-            do {
-                cout << "1. Agregar Producto" << endl;
-                cout << "2. Buscar Producto" << endl;
-                cout << "3. Modificar Producto" << endl;
-                cout << "4. Salir" << endl;
-                cout << "Ingrese su opción: ";
-                cin >> opcion;
-
-                switch(opcion) {
-                    case 1:
-                        agregarProducto(inventario);
-                        break;
-                    case 2:
-                        buscarProducto(inventario);
-                        break;
-                    case 3:
-                        modificarProducto(inventario);
-                        break;
-                    case 4:
-                        cout << "Saliendo..." << endl;
-                        break;
-                    default:
-                        cout << "Opción no válida. Intente de nuevo." << endl;
-                }
-            } while(opcion != 4);
-
-            return 0;
-        }
-  
+    return 0;
+}
 ```
-
-
-  
 [link del video de nuestro proyeco, funcionamiento y explicacion de nuestro código](https://youtu.be/w9U3jg1CCBc?feature=shared)
